@@ -11,3 +11,8 @@ export const signupValidation = Yup.object({
     district: Yup.string().required('District is required'),
     state: Yup.string().required('State is required'),
 });
+
+export const signInValidation = Yup.object({
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    password: Yup.string().required('Password is required'),
+});

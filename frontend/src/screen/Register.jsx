@@ -2,31 +2,49 @@ import { useFormik } from 'formik';
 import regLogPNG from '../images/login1.jpg';
 import {signupValidation} from '../schema';
 import {NavLink} from 'react-router-dom';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
+import { BASE_BACKEND_URL } from '../utils/credential';
 
-const initialValues={
-    name:'',
-    email:'',
-    phone_number:'',
-    age:'',
-    password:'',
-    address:'',
-    city:'',
-    district:'',
-    state:'',
-}
 
-const Register = () => {
+const Register = ({roles}) => {
+
+    const initialValues={
+        name:'',
+        email:'',
+        phone_number:'',
+        age:'',
+        password:'',
+        address:'',
+        city:'',
+        district:'',
+        state:'',
+        role:roles,
+    }
+
     const [passwordShow,setPasswordShow] = useState(false);
 
     const {values,touched,handleBlur,handleChange,handleSubmit,errors} = useFormik({
         initialValues:initialValues,
         validationSchema:signupValidation,
         onSubmit:async(values,action)=>{
-
+            try {
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/reg`,values);
+                
+                if(response.status === 200){
+                    toast.success(response.data.success)
+                    action.resetForm();
+                    setTimeout(() => {
+                        window.location.assign('/login')
+                    }, 400);
+                }
+            } catch (error) {
+                toast.error('somthing woring in registration', error);
+            }
         }
     })
   return (
@@ -36,7 +54,7 @@ const Register = () => {
 
         <div className='absolute w-full h-full md:w-fit md:h-fit md:p-4 md:top-5 md:right-40 top-0 right-0 p-10 bg-gradient-to-r from-gray-700 via-gray-900 to-black rounded-md'>
             <h2 className='text-2xl mt-4 text-white'>Create your account</h2>
-            <form className='mt-5 text-center w-full'>
+            <form className='mt-5 text-center w-full text-white' onSubmit={handleSubmit}>
 
                 {/* name */}
                 <div className='mb-5 w-full'>
@@ -66,16 +84,27 @@ const Register = () => {
                 </div>
 
                 {/* phone number */}
-                <div className='mb-5'>
-                    <input type='number' placeholder='+91 ..........' name='phone_number' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.phone_number} onChange={handleChange} onBlur={handleBlur}/>
-                    {
-                        errors.phone_number && touched.phone_number ? (<small className='block text-start p-1 text-red-500'>{errors.phone_number}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
-                    }
+                <div className='md:flex'>
+                    <div className='mb-5'>
+                        <input type='number' placeholder='+91 ..........' name='phone_number' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.phone_number} onChange={handleChange} onBlur={handleBlur}/>
+                        {
+                            errors.phone_number && touched.phone_number ? (<small className='block text-start p-1 text-red-500'>{errors.phone_number}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
+                        }
+                    </div>
+
+                    {/* age */}
+                    <div className='mb-5'>
+                        <input type='number' min='18' placeholder='age' name='age' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.age} onChange={handleChange} onBlur={handleBlur}/>
+                        {
+                            errors.age && touched.age ? (<small className='block text-start p-1 text-red-500'>{errors.age}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
+                        }
+                    </div>
+
                 </div>
 
                 {/* address */}
                 <div className='mb-5'>
-                    <input type='text' placeholder='#address' name='address' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.city} onChange={handleChange} onBlur={handleBlur}/>
+                    <input type='text' placeholder='#address' name='address' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.address} onChange={handleChange} onBlur={handleBlur}/>
                     {
                         errors.address && touched.address ? (<small className='block text-start p-1 text-red-500'>{errors.address}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
                     }
