@@ -1,27 +1,49 @@
 import { RiSendPlaneFill } from "react-icons/ri";
 import AdminBusinessCategory from "./AdminBusinessCategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
 import { BASE_BACKEND_URL, token } from "../utils/credential";
 
 const Admin = () => {
-    const [categoriesValue,setCategoriesValue]=useState({
-        name_of_category:[''],
-    })
+    const [newCategory,setNewCategory]=useState('');
+    const [categories,setCategories]=useState([])
 
     const inputCategoryHandling=async(e)=>{
         e.preventDefault()
+        console.log(newCategory)
         try {
-            // console.log(categoriesValue)
-            // const response = await fetch(`${BASE_BACKEND_URL}/api/category`,{method:'POST',headers:{'Content-Type':'application/json','x-access-token':token},body:JSON.stringify({categoriesValue:categoriesValue})})
-            // const data = await response.json()
-            // console.log(data)
-            // if(data){}
+            const response = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'POST',headers:{'Content-Type':'application/json','x-access-token':token},body:JSON.stringify({category:newCategory})})
+            const data = await response.json()
+            if(data){
+                toast.success(`${newCategory} created succesfully..`)
+                setNewCategory('')
+            }
         }catch (error) {
             toast.error(error)
         }
     }
 
+    useEffect(()=>{
+        if(token){
+            getCategories()
+        }else{
+            window.location.assign('/login')
+        }
+    },[newCategory])
+
+    const getCategories = async()=>{
+        try {
+            const response = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}})
+            const data = await response.json()
+            if(data){
+                setCategories(data?.data[0]?.category)
+                // console.log(data.data[0].category)
+            }
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+    // console.log(categories)
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
@@ -35,9 +57,13 @@ const Admin = () => {
 
                     {/* sub categories' */}
                     <div className='text-lg w-full h-[90%] overflow-y-auto text-center text-black'>
-                        <div className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointer">
-                            <AdminBusinessCategory/>
-                        </div>
+                        {
+                            categories && categories.map((category,index)=>(
+                                <div key={index} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer">
+                                    <AdminBusinessCategory category={category}/>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
 
@@ -45,7 +71,7 @@ const Admin = () => {
                 <div className='w-full h-[10%] py-4'>
 
                     <form onSubmit={inputCategoryHandling} className="w-full h-full flex flex-row">
-                        <input className='w-full text-black text-lg ps-3 rounded-s-md drop-shadow cursor-pointer outline-none' type="text" placeholder='Enter Categories..' name='name_of_category' id='name_of_category' value={categoriesValue.name_of_category} onChange={(e)=>setCategoriesValue({...categoriesValue,name_of_category:e.target.value})}/>
+                        <input className='w-full text-black text-lg ps-3 rounded-s-md drop-shadow cursor-pointer outline-none' type="text" placeholder='Enter Categories..' name='name_of_category' id='name_of_category' value={newCategory} onChange={(e)=>setNewCategory(e.target.value)}/>
                         <button className='px-2 bg-blue-700 rounded-r-md drop-shadow focus:bg-blue-800 active:bg-blue-900' type='submit' ><RiSendPlaneFill className="text-4xl" /></button>
                     </form>                    
                 </div>

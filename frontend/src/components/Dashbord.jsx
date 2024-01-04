@@ -1,30 +1,26 @@
 import React, { useEffect } from 'react'
-import { token,role } from '../utils/credential'
-import Homepreneur from '../screen/Homepreneur'
-import Invester from '../screen/Invester'
-import Customer from '../screen/Customer'
-import Admin from '../screen/Admin'
-
+import { token,role } from '../utils/credential';
 const Dashbord = () => {
 
     useEffect(()=>{
         if(!token){
+          localStorage.removeItem('user')
             window.location.assign('/login')
         }
     },[])
   return (
     <>
       {
-        role === 'homepreneur' && <Homepreneur/>
+        role === 'homepreneur' && window.location.assign('/dashbord/homepreneur')
       }
       {
-        role === 'invester' && <Invester/>
+        role === 'invester' && window.location.assign('/dashbord/invester')
       }
       {
-        role === 'customer' && <Customer/>
+        role === 'customer' && window.location.assign('/dashbord/customer')
       }
       {
-        role === 'admin' && <Admin/>
+        role === 'admin' && window.location.assign('/dashbord/admin')
       }
     </>
   )

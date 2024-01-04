@@ -17,7 +17,7 @@ app.use(cors({
 }));
 
 app.use('/api',userLogReg);
-app.use('/api',ProductCategoryRouter);
+app.use('/admin',ProductCategoryRouter);
 
 
 app.listen(PORT,()=>{

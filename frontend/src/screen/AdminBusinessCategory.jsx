@@ -1,9 +1,9 @@
 import React from 'react'
 
-const AdminBusinessCategory = () => {
+const AdminBusinessCategory = ({category}) => {
   return (
     <>
-      <p>AdminBusinessCategory</p>
+      <p>{category}</p>
     </>
   )
 }

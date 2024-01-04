@@ -22,10 +22,10 @@ const Main = () => {
         <Route path='/forgotpassword' element={<ForgotPassword/>}/>
 
         <Route path='/dashbord' element={<Dashbord/>}/>
-        <Route path='/admin' element={<Admin/>}/>
-        <Route path='/homepreneur' element={<Homepreneur/>}/>
-        <Route path='/invester' element={<Invester/>}/>
-        <Route path='/customer' element={<Customer/>}/>
+        <Route path='/dashbord/admin' element={<Admin/>}/>
+        <Route path='/dashbord/homepreneur' element={<Homepreneur/>}/>
+        <Route path='/dashbord/invester' element={<Invester/>}/>
+        <Route path='/dashbord/customer' element={<Customer/>}/>
       </Routes>
     </>
   )
