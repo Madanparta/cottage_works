@@ -1,5 +1,7 @@
 export const BASE_BACKEND_URL = 'http://localhost:5000';
 
-export const {token,role} = JSON.parse(localStorage.getItem("user")) || {token:null}
+export const {token,role,_id,name} = JSON.parse(localStorage.getItem("user")) || {token:null}
 
 export const userData = JSON.parse(localStorage.getItem("user")) || { user: null }
+
+export const HomeEntrpID = _id && `HOM${_id.slice(-4)}` ;

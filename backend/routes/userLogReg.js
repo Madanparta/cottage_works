@@ -102,6 +102,36 @@ userLogReg.put('/pasforgt/:id',async(req,res)=>{
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+// profile edit..
+userLogReg.put('/edit/:id',async(req,res)=>{
+    const id = req.params.id;
+    const {email,password,phone_number,age,address,city} = req.body;
+    try {
+        const isUser = await Users.findOne({email});
+        if(!isUser){
+            return res.status(404).json({ message: 'User not found' })
+        }else{
+            bcrypt.hash(password,10, async function(err,hash){
+                if(err){
+                    return res.status(400).json({
+                        "Error":err
+                    })
+                }else{
+                    let updateData = await Users.findByIdAndUpdate(id,{password:hash,phone_number,age,address,city,email},{ new: true });
+                    // if (!updateData) {
+                    //     return res.status(404).json({ message: 'User not found' });
+                    // }
+                    res.json(updateData);
+                }
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error)
+    }
 })
 
 module.exports = userLogReg;

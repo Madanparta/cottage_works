@@ -16,3 +16,10 @@ export const signInValidation = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
 });
+
+export const userEditingValidation = Yup.object({
+    phone_number: Yup.string().required('Phone number is required'),
+    password: Yup.string().required('Password is required'),
+    address:Yup.string().required('Address is required'),
+    city: Yup.string().required('City is required'),
+})

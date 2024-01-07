@@ -5,11 +5,13 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const ProductCategoryRouter = require('./routes/Products');
+const homepreneur = require('./routes/homepreneur');
 require('dotenv').config();
 const PORT = process.env.PORT;
 
 connectDB() //batabase connection.
 app.use(bodyParser.json()) //body perser connected
+
 
 app.use(cors({
     credentials:true,
@@ -18,6 +20,7 @@ app.use(cors({
 
 app.use('/api',userLogReg);
 app.use('/admin',ProductCategoryRouter);
+app.use('/entre',homepreneur);
 
 
 app.listen(PORT,()=>{

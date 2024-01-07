@@ -10,7 +10,6 @@ const Admin = () => {
 
     const inputCategoryHandling=async(e)=>{
         e.preventDefault()
-        console.log(newCategory)
         try {
             const response = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'POST',headers:{'Content-Type':'application/json','x-access-token':token},body:JSON.stringify({category:newCategory})})
             const data = await response.json()
@@ -37,7 +36,6 @@ const Admin = () => {
             const data = await response.json()
             if(data){
                 setCategories(data?.data[0]?.category)
-                // console.log(data.data[0].category)
             }
         } catch (error) {
             toast.error(error)
