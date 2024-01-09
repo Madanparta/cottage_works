@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const ProductCategoryRouter = require('./routes/Products');
 const homepreneur = require('./routes/homepreneur');
+const usersData = require('./routes/usersData');
 require('dotenv').config();
 const PORT = process.env.PORT;
 
@@ -19,6 +20,7 @@ app.use(cors({
 }));
 
 app.use('/api',userLogReg);
+app.use('/api',usersData);
 app.use('/admin',ProductCategoryRouter);
 app.use('/entre',homepreneur);
 

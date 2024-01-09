@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { token } from '../utils/credential';
+import { HomeEntrpID, InvesterID, token } from '../utils/credential';
 import { CiLogout } from "react-icons/ci";
 import { userData } from '../utils/credential';
 import EditProfile from './EditProfile'
@@ -38,6 +38,7 @@ const Profile = () => {
           <div className='flex flex-col'>
             {!isEditing ?
             (<> <p className='text-lg font-light mt-2 capitalize'>Name : {userData.name}</p>
+            <p className='text-lg font-light mt-2 capitalize'>ID : {userData.role === 'invester' ? InvesterID : HomeEntrpID}</p>
             <p className='text-lg font-light mt-2 capitalize'>Role : {userData.role}</p>
             <p className='text-lg font-light mt-2'>Phone number : {userData.phone_number}</p>
             <p className='text-lg font-light mt-2'>Email : {userData.email}</p>
