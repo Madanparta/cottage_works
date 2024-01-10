@@ -3,10 +3,12 @@ import AdminBusinessCategory from "./AdminBusinessCategory";
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
 import { BASE_BACKEND_URL, token } from "../utils/credential";
+import AdminMainDashBord from "./AdminMainDashBord";
 
 const Admin = () => {
     const [newCategory,setNewCategory]=useState('');
     const [categories,setCategories]=useState([])
+    const [users,setUsers]=useState([])
 
     const inputCategoryHandling=async(e)=>{
         e.preventDefault()
@@ -25,8 +27,10 @@ const Admin = () => {
     useEffect(()=>{
         if(token){
             getCategories()
+            getUsers()
         }else{
             window.location.assign('/login')
+            localStorage.removeItem('user')
         }
     },[newCategory])
 
@@ -41,7 +45,22 @@ const Admin = () => {
             toast.error(error)
         }
     }
-    // console.log(categories)
+
+    const getUsers = async () => {
+        try {
+            const response = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}})
+            const data = await response.json();
+
+            if(data){
+                setUsers(data.data)
+            }
+        } catch (error) {
+            toast.error('something error ',error)
+        }
+    }
+
+    
+    // console.log(users)
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
@@ -77,7 +96,28 @@ const Admin = () => {
             </aside>
 
             {/* main section */}
-            <section className='w-10/12 h-full'>
+            <section className='w-10/12 h-full pt-5 text-center'>
+                <h2 style={{fontFamily: 'Preahvihear, sans-serif'}} className="text-2xl mb-10">DashBord</h2>
+
+                <table className="w-full h-fit">
+                    <thead className="w-full h-full bg-gray-50 text-black">
+                        <tr className="border py-2 text-lg border-black">
+                            <th className="border w-1/12 border-black">SL NO</th>
+                            <th className="border w-2/12 border-black">Name</th>
+                            <th className="border w-2/12 border-black">USER ID</th>
+                            <th className="border w-2/12 border-black">Role</th>
+                            <th className="border w-2/12 border-black">Email</th>
+                            <th className="border w-3/12 border-black">other</th>
+                        </tr>
+                    </thead>
+                    <tbody className="w-full h-full">
+                        {
+                            users.map((info,index)=>(
+                                <AdminMainDashBord key={info._id} index={index} info={info}/>
+                            ))
+                        }
+                    </tbody>
+                </table>
                 
             </section>
         </section>

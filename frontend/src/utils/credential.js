@@ -6,3 +6,4 @@ export const userData = JSON.parse(localStorage.getItem("user")) || { user: null
 
 export const HomeEntrpID = _id && `HOM${_id.slice(-4)}` ;
 export const InvesterID = _id && `INV${_id.slice(-4)}` ;
+export const CustomerID = _id && `CUT${_id.slice(-4)}` ;

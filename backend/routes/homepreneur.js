@@ -85,4 +85,19 @@ homepreneur.post('/product',async(req,res)=>{
 })
 
 
+// get product..
+homepreneur.get('/product',async(req,res)=>{
+    try {
+
+        const data = await HomeProduct.find({});
+
+        if (data) {
+            res.status(200).json({product:data});
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+
 module.exports = homepreneur;

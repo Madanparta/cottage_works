@@ -22,7 +22,7 @@ userLogReg.post('/reg',async(req,res)=>{
                 });
             }
             if(hash){
-                await Users.create({name,email,password:hash,phone_number,age,address,city,district,state,role:role || 'customer'})
+                await Users.create({name,email,password:hash,phone_number,age,address,city,district,state,role:role || 'customer',approved:null})
 
                 return res.status(200).json({ success: 'User registration successful' })
             }
@@ -128,6 +128,21 @@ userLogReg.put('/edit/:id',async(req,res)=>{
             })
         }
 
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error)
+    }
+})
+
+
+// approval updated..
+userLogReg.put('/approval/:id',async(req,res)=>{
+    const {approved} = req.body;
+    try {
+       const appr = await Users.findByIdAndUpdate({_id:req.params.id},{approved:approved})
+       if(appr){
+            return res.status(200).json(appr);
+       }
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
         console.log(error)

@@ -47,6 +47,9 @@ const userLogRegModelSChema = new mongoose.Schema({
     role:{
         type:String,
     },
+    approved:{
+        type:String,
+    },
 },{timestamps:true});
 
 const Users = mongoose.model('Users',userLogRegModelSChema);
