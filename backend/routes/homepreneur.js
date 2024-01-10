@@ -2,6 +2,7 @@ const express = require('express')
 const homepreneur = express.Router();
 const Authentication = require('../middleware/autherization');
 const HomepreneurDetails = require('../models/homepreneurModel');
+const HomeProduct = require('../models/hometrprenurProduct');
 
 homepreneur.use(Authentication);
 
@@ -61,7 +62,22 @@ homepreneur.post('/presentIdea',async(req,res)=>{
         const data = await HomepreneurDetails.create({user:req.user,...req.body});
 
         if (data) {
-            res.status(200).json({message:"Order successfully created"});
+            res.status(200).json({message:"Idea created successfully."});
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+
+// product..
+homepreneur.post('/product',async(req,res)=>{
+    try {
+
+        const data = await HomeProduct.create({user:req.user,...req.body});
+
+        if (data) {
+            res.status(200).json({message:"Product created successfully"});
         }
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
