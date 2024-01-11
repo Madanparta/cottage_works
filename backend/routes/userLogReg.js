@@ -22,7 +22,7 @@ userLogReg.post('/reg',async(req,res)=>{
                 });
             }
             if(hash){
-                await Users.create({name,email,password:hash,phone_number,age,address,city,district,state,role:role || 'customer',approved:null})
+                await Users.create({name,email,password:hash,phone_number,age,address,city,district,state,role:role || 'customer',approved:false})
 
                 return res.status(200).json({ success: 'User registration successful' })
             }

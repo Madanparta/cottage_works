@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import PresentIdea from "./PresentIdea"
 import HomeEntrHomepage from "./HomeEntrHomepage";
 import HomeEntBusinessCateg from "./HomeEntBusinessCateg";
@@ -6,6 +6,7 @@ import HomeEnterBusinessOffers from "./HomeEnterBusinessOffers";
 import HomeEnterSellProduct from "./HomeEnterSellProduct";
 import { BASE_BACKEND_URL, token } from "../utils/credential";
 import toast from "react-hot-toast";
+
 
 const Homepreneur = () => {
   const [selectedComponent,setSelectedComponent]=useState(null);
@@ -35,6 +36,7 @@ const Homepreneur = () => {
         toast.error(error)
     }
   }
+
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 

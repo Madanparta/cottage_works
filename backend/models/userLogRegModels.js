@@ -48,7 +48,7 @@ const userLogRegModelSChema = new mongoose.Schema({
         type:String,
     },
     approved:{
-        type:String,
+        type:Boolean,
     },
 },{timestamps:true});
 
