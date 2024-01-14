@@ -28,8 +28,8 @@ const AdminMainDashBord = ({info,index}) => {
       <td className="border w-2/12 py-1 hover:bg-gray-700 active:bg-gray-600">{role}</td>
       <td className="border w-2/12 py-1 hover:bg-gray-700 active:bg-gray-600">{email}</td>
       <td className="border w-3/12 py-1 ">
-        <button onClick={()=>{setApproval(true);updateApproval()}} className={`py-1 px-4 bg-green-700 hover:bg-green-800 active:bg-green-900 text-white rounded drop-shadow mx-2 ${approval === 'approval' && 'disabled'}`}>Approval</button>
-        <button onClick={()=>{setApproval(false);updateApproval()}} className={`py-1 px-4 bg-red-700 hover:bg-red-800 active:bg-red-900 text-white rounded drop-shadow mx-2 ${approval === 'reject' && 'disabled'}`}>Reject</button>
+        <button onClick={()=>{setApproval(true);updateApproval()}} className={`py-1 px-4 bg-green-700 hover:bg-green-800 active:bg-green-900 text-white rounded drop-shadow mx-2 ${approval === true && 'disabled:opacity-15 hover:cursor-not-allowed'}`}>Approval</button>
+        <button onClick={()=>{setApproval(false);updateApproval()}} className={`py-1 px-4 bg-red-700 hover:bg-red-800 active:bg-red-900 text-white rounded drop-shadow mx-2 ${approval === false && 'disabled:opacity-15 hover:cursor-not-allowed'}`}>Reject</button>
       </td>
     </tr>
   )

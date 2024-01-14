@@ -8,7 +8,9 @@ import AdminMainDashBord from "./AdminMainDashBord";
 const Admin = () => {
     const [newCategory,setNewCategory]=useState('');
     const [categories,setCategories]=useState([])
-    const [users,setUsers]=useState([])
+    const [users,setUsers]=useState([]);
+
+    const [selectedRole,setSelectRole]=useState('');
 
     const inputCategoryHandling=async(e)=>{
         e.preventDefault()
@@ -60,7 +62,14 @@ const Admin = () => {
     }
 
     
-    // console.log(users)
+    // console.log(selectedRole)
+
+    // role handling.
+    const SelectRoleHandler = (e) => {
+        setSelectRole(e.target.value)
+    }
+
+    const findUsers = users.filter((user)=>user.role.includes(selectedRole))
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
@@ -105,15 +114,22 @@ const Admin = () => {
                             <th className="border w-1/12 border-black">SL NO</th>
                             <th className="border w-2/12 border-black">Name</th>
                             <th className="border w-2/12 border-black">USER ID</th>
-                            <th className="border w-2/12 border-black">Role</th>
+                            <th className="border w-2/12 border-black">
+                            <select name="roleSelect" id="roleSelect" className="outline-none bg-gray-50" value={selectedRole} onChange={SelectRoleHandler}>
+                                <option value="">All Role</option>
+                                <option value="homepreneur">HomEntrepreneur</option>
+                                <option value="invester">Invester</option>
+                                <option value="customer">customer</option>
+                                </select>
+                            </th>
                             <th className="border w-2/12 border-black">Email</th>
                             <th className="border w-3/12 border-black">other</th>
                         </tr>
                     </thead>
                     <tbody className="w-full h-full">
                         {
-                            users.map((info,index)=>(
-                                <AdminMainDashBord key={info._id} index={index} info={info}/>
+                            users.length > 0 && findUsers.map((info,index)=>(
+                                <AdminMainDashBord key={info._id} index={index} info={info} setSelectRole={setSelectRole}/>
                             ))
                         }
                     </tbody>

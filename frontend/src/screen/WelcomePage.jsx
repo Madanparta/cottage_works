@@ -1,8 +1,10 @@
-import smbg from '../images/login.png'
+import smbg from '../images/login.png';
+import { Link, Navigate } from 'react-router-dom';
 
 const WelcomePage = ({setRole}) => {
   const handleHomepreneurButton =() => {
     setRole('homepreneur');
+    
   }
   const handleInvesterButton =() => {
     setRole('invester');
@@ -17,8 +19,8 @@ const WelcomePage = ({setRole}) => {
                 <p className='text-xl font-mono drop-shadow md:text-3xl'>Chase your goals</p>
 
                 <div className='flex gap-5 justify-center items-center mt-3'>
-                    <button onClick={handleHomepreneurButton} className='px-2 py-1 border rounded-md cursor-pointer text-lg md:text-xl capitalize drop-shadow bg-green-50 hover:bg-green-200 active:bg-green-300'>Homepreneur</button>
-                    <button onClick={handleInvesterButton} className='px-2 py-1 border rounded-md cursor-pointer text-lg md:text-xl capitalize drop-shadow bg-red-50 hover:bg-red-200 active:bg-red-300'>investor</button>
+                    <Link to='/login' onClick={handleHomepreneurButton} className='px-2 py-1 border rounded-md cursor-pointer text-lg md:text-xl capitalize drop-shadow bg-green-50 hover:bg-green-200 active:bg-green-300'>Homepreneur</Link>
+                    <Link to='/login' onClick={handleInvesterButton} className='px-2 py-1 border rounded-md cursor-pointer text-lg md:text-xl capitalize drop-shadow bg-red-50 hover:bg-red-200 active:bg-red-300'>investor</Link>
                 </div>
             </div>
         </section>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { TbArrowForwardUpDouble } from "react-icons/tb";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { HiUser } from "react-icons/hi2";
@@ -8,7 +8,6 @@ import { _id, userData } from "../utils/credential";
 
 const Header = () => {
   const [showManu,setShowManu]=useState(false);
-
   return (
     <section className='w-full flex justify-between items-center border py-2 px-4 sm:px-4 md:px-10 sticky top-0 left-0 shadow-lg bg-white z-50'>
       <div className=''>

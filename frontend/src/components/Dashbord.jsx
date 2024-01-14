@@ -1,60 +1,73 @@
 import React, { useEffect, useState } from 'react'
-import { token,role, BASE_BACKEND_URL, _id } from '../utils/credential';
+import { token,_id,role, BASE_BACKEND_URL } from '../utils/credential';
 import toast from 'react-hot-toast';
+import Bean from '../images/Bean Eater-1s-200px.svg';
 
 
 const Dashbord = () => {
 
-  // const [userData,setUserData]=useState([]);
-  // const [role,setRole]=useState('')
-  // const [approval,setApproval]=useState(false);
+  const [userData,setUserData]=useState([]);
+  const [userole,setRole]=useState('')
+  const [approval,setApproval]=useState(true);
 
     useEffect(()=>{
         if(!token){
           localStorage.removeItem('user')
           window.location.assign('/login')
         }else{
-          // getDatas();
-          // findingApprovalOrNot()
+          getDatas();
         }
     },[token])
 
-      // const getDatas = async()=>{
-      //   try {
-      //       const response = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}})
-      //       const data = await response.json()
-      //       if(data){
-      //         setUserData(data?.data)
-      //       }
-      //   } catch (error) {
-      //       toast.error(error)
-      //   }
-      // }
+      const getDatas = async()=>{
+        try {
+            const response = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}})
+            const data = await response.json()
+            if(data){
+              setUserData(data?.data)
+            }
+        } catch (error) {
+          toast.error(error)
+        }
+      }
 
-      // const findingApprovalOrNot = () => {
-      //   userData.find((info)=>{
-      //     if(info._id === _id){
-      //       console.log(info.role)
-      //     }
-      //   })
-      // }
+      const findingRoleApprovalOrNot = () => {
+        userData.find((info)=>{
+          if(info._id === _id){
+            setRole(info.role)
+            setApproval(info.approved)
+          }
+        })
+      }
 
-    // toast.success('your account approved..🚀') : toast.error("your account still pending hop's approved soon.!! 🤞 ")
+      useEffect(()=>{
+        if(!userData){
+          window.location.assign('/login')
+          localStorage.removeItem('user')
+        }
+        let setAppro,setRejec
+        findingRoleApprovalOrNot()
+        userole === 'admin' && window.location.assign(`/dashbord/${userole}`)
+        if(approval){
+          setAppro = setTimeout(()=>{
+            role === userole && window.location.assign(`/dashbord/${userole}`)
+          },500)
+        }else{
+          toast.error("your account still pending hop's approved soon.!! 🤞 ")
+          setRejec = setTimeout(()=>{
+            window.location.assign(`/dashbord/customer`)
+          },1000) 
+        }
+
+        return () => {
+          clearTimeout(setAppro)
+          clearTimeout(setRejec)
+        }
+      },[userData])
   return (
-    <>
-      {
-        role === 'homepreneur' && window.location.assign('/dashbord/homepreneur')
-      }
-      {
-        role === 'invester' && window.location.assign('/dashbord/invester')
-      }
-      {
-        role === 'customer' && window.location.assign('/dashbord/customer')
-      }
-      {
-        role === 'admin' && window.location.assign('/dashbord/admin')
-      }
-    </>
+    <section className='flex justify-center items-center w-full h-full'>
+    <img src={Bean} alt="loading svg" />
+    </section>
   )
 }
 

@@ -12,6 +12,7 @@ import Customer from '../screen/Customer';
 import ForgotPassword from '../screen/ForgotPassword';
 import Admin from '../screen/Admin';
 import { _id } from '../utils/credential';
+import PrivateRout from './PrivateRout';
 
 const Main = () => {
   const [roles,setRole]=useState(null);
@@ -22,13 +23,16 @@ const Main = () => {
         <Route path='/register' element={<Register roles={roles}/>}/>
         <Route path='/login' element={<Login roles={roles}/>}/>
         <Route path='/forgotpassword' element={<ForgotPassword/>}/>
-        <Route path='/profile/:id' element={<Profile/>}/>
 
-        <Route path='/dashbord' element={<Dashbord/>}/>
-        <Route path='/dashbord/admin' element={<Admin/>}/>
-        <Route path='/dashbord/homepreneur' element={<Homepreneur/>}/>
-        <Route path='/dashbord/invester' element={<Invester/>}/>
-        <Route path='/dashbord/customer' element={<Customer/>}/>
+        {/* privat rout */}
+        <Route path='/' element={<PrivateRout/>}>
+          <Route path='/profile/:id' element={<Profile/>}/>
+          <Route path='/dashbord' element={<Dashbord/>}/>
+          <Route path='/dashbord/admin' element={<Admin/>}/>
+          <Route path='/dashbord/homepreneur' element={<Homepreneur/>}/>
+          <Route path='/dashbord/invester' element={<Invester/>}/>
+          <Route path='/dashbord/customer' element={<Customer/>}/>  
+        </Route>
       </Routes>
     </>
   )

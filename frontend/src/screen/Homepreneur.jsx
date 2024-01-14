@@ -4,7 +4,7 @@ import HomeEntrHomepage from "./HomeEntrHomepage";
 import HomeEntBusinessCateg from "./HomeEntBusinessCateg";
 import HomeEnterBusinessOffers from "./HomeEnterBusinessOffers";
 import HomeEnterSellProduct from "./HomeEnterSellProduct";
-import { BASE_BACKEND_URL, token } from "../utils/credential";
+import { BASE_BACKEND_URL, _id, token } from "../utils/credential";
 import toast from "react-hot-toast";
 
 
@@ -37,12 +37,14 @@ const Homepreneur = () => {
     }
   }
 
+
+
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
         <section className='w-full h-[94.5vh] flex'>
             {/* side bar */}
-            <aside className='w-2/12 h-full bg-gradient-to-r from-gray-100 to-gray-300 shadow flex flex-col items-center px-3 pt-10 pb-6'>
+            <aside className='w-full md:w-2/12 h-full bg-gradient-to-r from-gray-100 to-gray-300 shadow flex flex-col items-center px-3 pt-10 pb-6'>
 
                 {/* category types... */}
                 <div className='w-full h-[90%] py-2'>
@@ -59,7 +61,7 @@ const Homepreneur = () => {
             </aside>
 
             {/* main section */}
-            <section className='w-10/12 h-full'>
+            <section className='md:w-10/12 h-full'>
                 
                 {/* welcome face.. */}
                 <div className='w-[70%] h-full pt-10'>
