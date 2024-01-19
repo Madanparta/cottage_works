@@ -19,6 +19,10 @@ app.use(cors({
     origin:'http://localhost:3000'
 }));
 
+app.get('/',(req,res)=>{
+    res.send("cottage_works")
+})
+
 app.use('/api',userLogReg);
 app.use('/api',usersData);
 app.use('/admin',ProductCategoryRouter);
