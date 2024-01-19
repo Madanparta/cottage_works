@@ -22,7 +22,7 @@ const Main = () => {
         <Route path='/' element={<WelcomePage setRole={setRole}/>}/>
         <Route path='/register' element={<Register roles={roles}/>}/>
         <Route path='/login' element={<Login roles={roles}/>}/>
-        <Route path='/forgotpassword' element={<ForgotPassword/>}/>
+        <Route path='/forgotpassword' element={<ForgotPassword roles={roles}/>}/>
 
         {/* privat rout */}
         <Route path='/' element={<PrivateRout/>}>

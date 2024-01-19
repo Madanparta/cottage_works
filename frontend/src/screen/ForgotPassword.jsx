@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Login from './Login';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({roles}) => {
+const [forgortPassword,setForgotPassword]=useState(true);
+
+
   return (
-    <div>
-      ForgotPassword
-    </div>
+    <>
+      <Login roles={roles} forgortPassword={forgortPassword}/>
+    </>
   )
 }
 

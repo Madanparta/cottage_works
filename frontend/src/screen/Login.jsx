@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { BASE_BACKEND_URL } from '../utils/credential';
 
 
-const Login = ({roles}) => {
+const Login = ({roles,forgortPassword}) => {
   const initialValues={
     email:'',
     password:'',
@@ -22,15 +22,16 @@ const {values,touched,handleBlur,handleChange,handleSubmit,errors} = useFormik({
     initialValues:initialValues,
     validationSchema:signInValidation,
     onSubmit:async(values,action)=>{
-        try {
-            const response = await axios.post(`${BASE_BACKEND_URL}/api/log`,values);
+      try {
+          let response;
+          forgortPassword? response = await axios.put(`${BASE_BACKEND_URL}/api/pasforgt`,values) : response = await axios.post(`${BASE_BACKEND_URL}/api/log`,values);
             
             if(response.status === 200){
-              localStorage.setItem('user',JSON.stringify(response.data));
-                toast.success(`${roles} loged succesfully..🚀`)
+              !forgortPassword && localStorage.setItem('user',JSON.stringify(response.data));
+              forgortPassword ? toast.success(`${roles} re-set password succesfully..🚀`) :toast.success(`${roles} loged succesfully..🚀`)
                 action.resetForm();
                 setTimeout(() => {
-                    window.location.assign('/dashbord');
+                    window.location.assign(forgortPassword ? '/login' :'/dashbord');
                 }, 400);
             }
         } catch (error) {
@@ -38,13 +39,14 @@ const {values,touched,handleBlur,handleChange,handleSubmit,errors} = useFormik({
         }
     }
 })
+// console.log(forgortPassword)
   return (
     <section className='w-full h-full relative bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600 md:bg-none text-black'>
       <section className='w-full h-[94.5vh]'>
         <img className='w-full h-full z-10 md:block hidden shadow-top-md object-contain' src={login_page} alt='sml-scren-bg'/>
 
         <div className='absolute w-full h-full md:w-3/12 md:h-fit md:p-4 md:top-20 md:right-40 top-0 right-0 p-10 drop-shadow-lg shadow-2xl rounded-md hover:-translate-y-2 duration-500 ease-in-out'>
-            <h2 className='text-2xl mt-4 '>Create your account</h2>
+            <h2 className='text-2xl mt-4 '>{forgortPassword ? "re-set password":"Log your account"}</h2>
             <form className='mt-5 text-center w-full' onSubmit={handleSubmit}>
 
               {/* email */}
@@ -68,10 +70,10 @@ const {values,touched,handleBlur,handleChange,handleSubmit,errors} = useFormik({
               {/* form footer */}
               <section className='mb-5 md:pr-10 text-center'>
                   <div className='w-full flex flex-col justify-end items-end gap-2 text-end'>
-                      <NavLink to={'/forgotpassword'} className='cursor-pointer inline-block hover:underline text-sm w-fit'>forgot password..</NavLink>
-                      <NavLink to={'/register'} className='cursor-pointer inline-block hover:underline text-sm w-fit'>you don't have account?</NavLink>
+                      <NavLink to={forgortPassword?"/login":'/forgotpassword'} className='cursor-pointer inline-block hover:underline text-sm w-fit'>{forgortPassword? 'return to login':"forgot password.."}</NavLink>
+                      {!forgortPassword && <NavLink to={'/register'} className='cursor-pointer inline-block hover:underline text-sm w-fit'>you don't have account?</NavLink>}
                   </div>
-                  <button className='mt-6 mb-2 drop-shadow-md w-[80%] py-1 hover:tracking-widest text-md bg-green-600 rounded-md text-white hover:bg-green-700 focus::bg-green-800 active:bg-green-900 duration-300 ease-in-out' type='submit'>Sign In</button>
+                  <button className='mt-6 mb-2 drop-shadow-md w-[80%] py-1 hover:tracking-widest text-md bg-green-600 rounded-md text-white hover:bg-green-700 focus::bg-green-800 active:bg-green-900 duration-300 ease-in-out' type='submit'>{forgortPassword?"re-set password" :"Sign In"}</button>
               </section>
 
             </form>

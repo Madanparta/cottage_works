@@ -78,8 +78,8 @@ userLogReg.post('/log',async(req,res)=>{
 
 
 // forgot password.
-userLogReg.put('/pasforgt/:id',async(req,res)=>{
-    const id = req.params.id;
+userLogReg.put('/pasforgt',async(req,res)=>{
+    // const id = req.params.id;
     const {password,email}=req.body;
     try {
         const checkUser = await Users.findOne({email});
@@ -92,7 +92,7 @@ userLogReg.put('/pasforgt/:id',async(req,res)=>{
                         "Error":err
                     });
                 }else{
-                    await Users.findByIdAndUpdate(id,{password:hash},{new:true});
+                    await Users.findByIdAndUpdate(checkUser._id,{password:hash},{new:true});
                     return res.status(200).json({
                         message:"user email & password updated succesfully.!!"
                     })
