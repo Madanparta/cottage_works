@@ -1,3 +1,5 @@
+// export const BASE_BACKEND_URL = 'https://cottage-works.onrender.com'
+
 export const BASE_BACKEND_URL = 'http://localhost:5000';
 
 export const {token,role,_id,name} = JSON.parse(localStorage.getItem("user")) || {token:null}
