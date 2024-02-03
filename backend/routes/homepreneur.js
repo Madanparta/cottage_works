@@ -99,5 +99,19 @@ homepreneur.get('/product',async(req,res)=>{
     }
 })
 
+// customer feedback.. put.
+homepreneur.put('/product/:id',async(req,res)=>{
+    const {feedback} = req.body;
+    try {
+        const data = await HomeProduct.findByIdAndUpdate({_id:req.params.id},{feedback:feedback},{ new: true });
+        if (data) {
+            res.status(200).json({ message: "thank you for you'r feedback.👏" });
+        } else {
+            res.status(404).json({ error: 'Product not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 
 module.exports = homepreneur;

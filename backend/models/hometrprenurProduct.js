@@ -20,6 +20,10 @@ const productSchema = new mongoose.Schema({
     price:{
         type:String
     },
+    feedback:{
+        type:String,
+        default:null
+    }
 },{timestamps:true});
 
 const HomeProduct = mongoose.model('HomeProduct',productSchema);

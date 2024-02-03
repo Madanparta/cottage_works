@@ -51,7 +51,7 @@ const Homepreneur = () => {
                     <h2 onClick={()=>handleComponentClick(null)} className='text-xl drop-shadow w-full text-center py-2 rounded-t-md bg-blue-700 cursor-pointer'>Homepreneur</h2>
 
                     <ul className='capitalize text-center text-black text-lg w-full h-[90%] overflow-y-auto '>
-                      <li onClick={()=>handleComponentClick(<HomeEntBusinessCateg categories={categories} setSelectBusinessCateg={setSelectBusinessCateg}/>)} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer active:underline active:bg-gray-300">Business Categories</li>
+                      {/* <li onClick={()=>handleComponentClick(<HomeEntBusinessCateg categories={categories} setSelectBusinessCateg={setSelectBusinessCateg}/>)} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer active:underline active:bg-gray-300">Business Categories</li> */}
                       <li onClick={()=>handleComponentClick(<PresentIdea selectBusinessCateg={selectBusinessCateg}/>)} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer active:underline active:bg-gray-300">Present My Idea</li>
                       <li onClick={()=>handleComponentClick(<HomeEnterBusinessOffers/>)} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer active:underline active:bg-gray-300">View Invester Offers</li>
                       <li onClick={()=>handleComponentClick(<HomeEnterSellProduct/>)} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer active:underline active:bg-gray-300">Sell Products</li>
