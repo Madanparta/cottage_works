@@ -21,7 +21,7 @@ const Profile = () => {
     }
     const logOut =()=>{
       localStorage.removeItem('user')
-      window.location.assign('/login')
+      window.location.assign('/')
     }
   return (
     <section className='h-full w-full p-10'>

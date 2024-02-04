@@ -11,6 +11,9 @@ const Admin = () => {
     const [users,setUsers]=useState([]);
     const [productFeedback,setProductFeedback]=useState([]);
     const [selectedRole,setSelectRole]=useState('');
+    const [contactUsData,setContactUsData]=useState([])
+    const [isOpen, setIsOpen] = useState(false);
+    const [contactData,setContactData]=useState('')
 
     // const inputCategoryHandling=async(e)=>{
     //     e.preventDefault()
@@ -42,9 +45,10 @@ const Admin = () => {
             // const categoryResponse  = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
             const usersResponse  = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
             const productFeedbacks  = await fetch(`${BASE_BACKEND_URL}/entre/product`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
+            const contactUs  = await fetch(`${BASE_BACKEND_URL}/some/contactus`,{method:'GET'});
 
 
-            const [usersData , feedback] = await Promise.all([usersResponse,productFeedbacks].map(response=>response.json()));
+            const [usersData ,feedback,contactus] = await Promise.all([usersResponse,productFeedbacks,contactUs].map(response=>response.json()));
 
             // if(categoryData){
             //     setCategories(categoryData?.data[0].category);
@@ -56,6 +60,10 @@ const Admin = () => {
 
             if(feedback){
                 setProductFeedback(feedback?.product)
+            }
+
+            if(contactus){
+                setContactUsData(contactus.data)
             }
 
         } catch (error) {
@@ -70,6 +78,14 @@ const Admin = () => {
 
     const findUsers = users.filter((user)=>user.role.includes(selectedRole))
 
+    const closeDialog = () => {
+      setIsOpen(false);
+    };
+    const openDialog = (data) => {
+      setIsOpen(true);
+      setContactData(data)
+    };
+
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
@@ -79,7 +95,33 @@ const Admin = () => {
 
                 {/* category types... */}
                 <div className='w-full h-[90%] py-2'>
-                    <h2 className='text-xl drop-shadow w-full text-center py-2 rounded-t-md bg-blue-700 '>Create Business Categories.</h2>
+                    {/* <h2 className='text-xl drop-shadow w-full text-center py-2 rounded-t-md bg-blue-700 '>Create Business Categories.</h2> */}
+                    <h2 className='text-xl drop-shadow w-full text-center py-2 rounded-t-md bg-blue-700 '>Some Contact Request ({contactUsData.length})*</h2>
+                    {/* Contact requests */}
+                    <div className='text-lg w-full h-[90%] overflow-y-auto text-center text-black'>
+                        {
+                            contactUsData && contactUsData.map((cont)=>(
+                                <div key={cont._id} className="w-full border py-1.5 shadow bg-gray-100 hover:bg-gray-200 cursor-pointerl cursor-pointer">
+                                    <p onClick={()=>openDialog(cont)}>{cont.message.length >= 30 ? cont.message.slice(0,20)+"...":cont.message}</p>
+                                </div>
+                            ))
+                        }
+
+                        {isOpen&&<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center text-black">
+                            <div className="absolute w-full h-full bg-gray-900 opacity-50" onClick={closeDialog}></div>
+                                <div className="bg-white p-8 rounded shadow-lg z-10">
+                                    <mark className="text-2xl mb-4 text-gray-800">Contactus Details</mark>
+                                    <div className="flex flex-col items-start">
+                                        <p>Name : {contactData.name}</p>
+                                        <p>Email : {contactData.email}</p>
+                                        <p>Message : {contactData.message}</p>
+                                    </div>
+                                    <button onClick={closeDialog} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+                                    Close
+                                    </button>
+                                </div>
+                            </div>}
+                    </div>
 
                     {/* sub categories' */}
                     {/* <div className='text-lg w-full h-[90%] overflow-y-auto text-center text-black'>
