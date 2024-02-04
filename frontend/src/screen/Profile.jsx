@@ -38,13 +38,13 @@ const Profile = () => {
           <div className='flex flex-col'>
             {!isEditing ?
             (<> <p className='text-lg font-light mt-2 capitalize'>Name : {userData.name}</p>
-            {userData.role !== 'customer' && <p className='text-lg font-light mt-2 capitalize'>ID : {userData.role === 'invester' ? InvesterID : HomeEntrpID}</p>}
+            {userData.role !== 'customer' && <p className='text-lg font-light mt-2 capitalize'>ID : {userData.role === 'invester' ? InvesterID : userData.role === 'admin' ? null : HomeEntrpID}</p>}
             {userData.role === 'customer' && <p className='text-lg font-light mt-2 capitalize'>ID : {CustomerID}</p>}
             <p className='text-lg font-light mt-2 capitalize'>Role : {userData.role}</p>
             <p className='text-lg font-light mt-2'>Phone number : {userData.phone_number}</p>
             <p className='text-lg font-light mt-2'>Email : {userData.email}</p>
             <p className='text-lg font-light mt-2 capitalize'>Address : #{userData.address},{userData.city},{userData.district}</p>
-            <p className='text-lg font-light mt-2 capitalize'>State : {userData.state}</p> 
+            <p className='text-lg font-light mt-2 capitalize'>State : {userData.role === 'admin' ? null :userData.state}</p> 
             {!isEditing?<Link onClick={handleEditClick} to={`/profile/${_id}`} className='mt-8 text-center duration-200 ease-in-out border w-full py-1 rounded-md bg-green-400 hover:bg-green-500 focus:bg-green-600 active:bg-green-700 text-white font-semibold shadow-md'>Edit Profile</Link>:"Edit Profile"}
             </>):
             (

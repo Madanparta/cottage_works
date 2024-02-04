@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const homepreneurShema = new mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId,ref:"Users"},
-    businessCategory:{
-        type:String,
-        required:true,
-    },
     empID:{
         type:String,
         required:true

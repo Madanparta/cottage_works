@@ -41,10 +41,10 @@ const Admin = () => {
         try {
             // const categoryResponse  = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
             const usersResponse  = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
-            const productFeedback  = await fetch(`${BASE_BACKEND_URL}/entre/product`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
+            const productFeedbacks  = await fetch(`${BASE_BACKEND_URL}/entre/product`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
 
 
-            const [usersData , feedback] = await Promise.all([usersResponse,productFeedback].map(response=>response.json()));
+            const [usersData , feedback] = await Promise.all([usersResponse,productFeedbacks].map(response=>response.json()));
 
             // if(categoryData){
             //     setCategories(categoryData?.data[0].category);

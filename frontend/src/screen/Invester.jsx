@@ -57,6 +57,8 @@ const Invester = () => {
       }
   },[token])
 
+  console.log(entrepreneurIdea)
+
   return (
     <section className='w-full h-[94.5vh] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r text-white'>
 
