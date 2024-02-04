@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes,Route } from 'react-router-dom';
 import WelcomePage from '../screen/WelcomePage';
 import Register from '../screen/Register';
@@ -14,8 +14,7 @@ import Admin from '../screen/Admin';
 import { _id } from '../utils/credential';
 import PrivateRout from './PrivateRout';
 
-const Main = () => {
-  const [roles,setRole]=useState(null);
+const Main = ({roles,setRole}) => {
   return (
     <>
       <Routes>

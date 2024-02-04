@@ -6,12 +6,10 @@ import { BASE_BACKEND_URL, token } from "../utils/credential";
 import AdminMainDashBord from "./AdminMainDashBord";
 
 const Admin = () => {
-    const [newCategory,setNewCategory]=useState('');
-    const [categories,setCategories]=useState([])
+    // const [newCategory,setNewCategory]=useState('');
+    // const [categories,setCategories]=useState([])
     const [users,setUsers]=useState([]);
-
     const [productFeedback,setProductFeedback]=useState([]);
-
     const [selectedRole,setSelectRole]=useState('');
 
     // const inputCategoryHandling=async(e)=>{
@@ -37,20 +35,20 @@ const Admin = () => {
             window.location.assign('/login')
             localStorage.removeItem('user')
         }
-    },[newCategory])
+    },[])
 
     const fetchDatas = async()=>{
         try {
-            const categoryResponse  = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
+            // const categoryResponse  = await fetch(`${BASE_BACKEND_URL}/admin/category`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
             const usersResponse  = await fetch(`${BASE_BACKEND_URL}/api/users`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
             const productFeedback  = await fetch(`${BASE_BACKEND_URL}/entre/product`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}});
 
 
-            const [categoryData, usersData , feedback] = await Promise.all([categoryResponse,usersResponse,productFeedback].map(response=>response.json()));
+            const [usersData , feedback] = await Promise.all([usersResponse,productFeedback].map(response=>response.json()));
 
-            if(categoryData){
-                setCategories(categoryData?.data[0].category);
-            }
+            // if(categoryData){
+            //     setCategories(categoryData?.data[0].category);
+            // }
 
             if(usersData){
                 setUsers(usersData.data)
@@ -64,8 +62,6 @@ const Admin = () => {
             toast.error(error)
         }
     }
-    
-    // console.log(productFeedback)
 
     // role handling.
     const SelectRoleHandler = (e) => {
